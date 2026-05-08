@@ -1,0 +1,38 @@
+---
+- hosts: '{{host}}'
+  become: yes
+
+  tasks:
+   - include_vars: "{{ userlist }}.yml"
+   - group: name=devops gid=2001 state=present
+
+   - name: Create login for '{{users}}'
+     user: name={{ item.username }} shell=/bin/bash createhome=yes comment='create with ansible' groups={{ item.groups }}
+     with_items: '{{users}}'
+
+   - name: Setup | authorized key upload
+     authorized_key: user={{ item.username }}
+      key="{{ lookup('file', '/Users/hchan/gitrepo/ssh-keys/{{ item.username }}.authorized_keys') }}"
+       path='/home/{{ item.username }}/.ssh/authorized_keys'
+     with_items: '{{users}}'
+
+   - name: Ensure group "devops" exists
+     group:
+       name: devops
+       state: present
+
+   - name: Touch the same file, but add/remove some permissions
+     file:
+      path: /etc/sudoers.d/{{ item.username }}
+      state: touch
+      mode: '0400'
+     with_items: '{{users}}'
+
+   - name: Sudoers | update sudoers file and validate
+     lineinfile: "dest=/etc/sudoers.d/{{ item.username }}
+	insertafter=EOF
+	line='{{ item.username }}  ALL=(ALL) NOPASSWD: ALL'
+	regexp='^{{ item.username }} .*'
+ 	state=present"
+     when: '{{ item.use_sudo }} == True'
+     with_items: '{{users}}'

@@ -1,0 +1,13 @@
+---
+- name: Transfer and execute a script in remote server.
+  hosts: '{{host}}'
+  become: yes
+
+  remote_user: test_user
+
+  tasks:
+     - name: Transfer the script
+       copy: src=test.sh dest=/home/test_user mode=0777
+
+     - name: Execute the script
+       command: sh /home/test_user/test.sh

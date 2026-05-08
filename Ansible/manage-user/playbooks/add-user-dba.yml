@@ -1,0 +1,23 @@
+---
+- hosts: '{{host}}'
+  become: yes
+
+  tasks:
+   - include_vars: "{{ userlist }}.yml"
+
+   - name: Add group "dba" if not exists
+     group:
+      name: dba
+      gid: 2002
+      state: present
+
+   - name: Create login for '{{users}}'
+     user: name={{ item.username }} shell=/bin/bash createhome=yes comment='create with ansible' groups={{ item.groups }}
+     with_items: '{{users}}'
+
+   - name: Setup | authorized key upload
+     authorized_key: user={{ item.username }}
+      key="{{ lookup('file', '/Users/hchan/gitrepo/ssh-keys/{{ item.username }}.authorized_keys') }}"
+       path='/home/{{ item.username }}/.ssh/authorized_keys'
+     with_items: '{{users}}'
+

@@ -1,0 +1,16 @@
+---
+- hosts: '{{host}}'
+  become: yes
+
+  tasks:
+   - include_vars: "{{ userlist }}.yml"
+
+   - name: Remove user for '{{users}}'
+     user: name={{ item.username }} state=absent remove=yes
+     with_items: '{{users}}'
+
+   - name: Remove file (delete file)
+     file:
+      path: /etc/sudoers.d/{{ item.username }}
+      state: absent
+     with_items: '{{users}}'

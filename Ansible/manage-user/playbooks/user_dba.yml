@@ -1,0 +1,7 @@
+---
+users:
+  - username: user1
+    use_sudo: yes
+    uid: 1701
+    groups: dba
+    append: yes

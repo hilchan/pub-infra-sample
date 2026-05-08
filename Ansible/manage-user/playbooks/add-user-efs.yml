@@ -1,0 +1,16 @@
+---
+- hosts: '{{host}}'
+  become: yes
+
+  tasks:
+   - include_vars: "{{ userlist }}.yml"
+
+   - name: Add group "efs" if not exists
+     group:
+      name: efs
+      gid: 2203
+      state: present
+
+   - name: Create login for '{{users}}'
+     user: name={{ item.username }} shell=/bin/bash createhome=yes comment='create with ansible' groups={{ item.groups }} uid={{ item.uid }}
+     with_items: '{{users}}'

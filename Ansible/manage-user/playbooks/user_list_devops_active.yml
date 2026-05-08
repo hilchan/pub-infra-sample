@@ -1,0 +1,13 @@
+---
+users:
+  - username: user1
+    use_sudo: yes
+    uid: 1234
+    groups: devops
+    append: yes
+
+  - username: user2
+    use_sudo: yes
+    uid: 5678
+    groups: devops
+    append: yes
