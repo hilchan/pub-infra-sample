@@ -1,4 +1,4 @@
-# Infrastructure project done
+# Infrastructure Project Completed
 
 This repo contains sample code written by Hilton Chan that utilized at organization
 
