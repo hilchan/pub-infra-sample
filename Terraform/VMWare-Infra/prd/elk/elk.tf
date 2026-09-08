@@ -2,17 +2,6 @@ terraform {
   required_version = "> 0.9.0"
 }
 
-// data "terraform_remote_state" "env" {
-//   backend = "s3"
-//   config {
-//     bucket                  = "mm-ops-devshrd/SJC-VM/mesos/qa"
-//     key                     = "terraform.tfstate"
-//     region                  = "us-west-1"
-//     shared_credentials_file = "${var.shared_credentials_file}"
-//     profile                 = "mm-dev"
-//   }
-// }
-
 provider "vsphere" {
   user           = "${var.vsphere_user}"
   password       = "${var.vsphere_password}"
