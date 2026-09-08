@@ -1,0 +1,26 @@
+
+## About find_aws_instance
+
+This script is intended to query EC2 instances on both AWS account and across regions. 
+
+### Prerequisites:
+* AWS CLI installed
+* AWS Profiles:  [xx-dev] and [xx-prod]
+* IAM access keys for user "mm-ops-bot" or your own AWS login with appropriate permission
+* Python 2.7+
+* Python Boto
+* Python Boto3 - optional for future script change
+
+### Usage:
+1. The script can be run by itself to generate all EC2 results.
+2. To narrow down searches, it can be run with the EC2 instance name to get result to that specific account
+
+```
+$ find_aws_instance.py <key name>
+    to search instance on both account with this name.
+````
+
+## CONTRIBUTORS
+* Hilton Chan - Modified to newer ver
+* Andy VW - Original author
+* http://boto.cloudhackers.com/en/latest/ref/ec2.html#module-boto.ec2

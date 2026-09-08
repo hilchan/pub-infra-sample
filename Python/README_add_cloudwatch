@@ -1,0 +1,41 @@
+
+## About Cloudwatch script
+
+This is script is intended to query a AWS account EC2 running instances and look for
+monitoring status. EC2 instances not monitored will be automatically added to Cloudwatch monitoring with metric "StatusCheckFailed".
+Executed from Rundeck to preserve history.
+
+### Prerequisites:
+* AWS CLI installed
+* AWS Profiles:  [XX-dev] and [XX-prod]
+* IAM access keys for user "monitoring-cloudwatch-bot"
+* User monitor-cloudwatch must exist and added to monitor-cloudwatch policy.
+  - "aws iam create-user --user-name monitor-cloudwatch --profile [XX-dev or XX-prod]"
+
+### Testing method prior to going live:
+* Change script in line 30 and 31 from "running" to "stopped" prior to doing a test run of script.
+* This will only add stopped instances for visualization instead of adding a mass running EC2.
+* Script will also output the InstanceID added to Cloudwatch and that can be used for validation.
+
+### Usage:
+1. The script requires a single argument in order to execute successfully but will be replace
+   with 2 arguments in the future.
+
+```
+$ find_instance_add_cloudwatch.sh XX-dev
+    Valid arguments: XX-dev, XX-prod
+````
+
+
+2. To run this in a cronjob.
+  - Script output can be nulled by piping to /dev/null or piping to log files for historical audit.
+  - Log rotate will be required if output is sent to a log file. No retention time have been discuss
+  but 30 days would provide enough info.
+
+3. To run in Jenkins or Rundeck.
+  - Minor modification in the script is required to pass environment variable and
+  arguments from Jenkins or Rundeck console.
+
+## CONTRIBUTORS
+* Hilton Chan - Cloudwatch script
+* Aaron C - AWS CLI instance output format and append to Cloudwatch.
