@@ -1,5 +1,5 @@
-vsphere_user   = "hchan@vsphere.local"
-vsphere_server = "sjcvcenter.mm-corp.net"
+vsphere_user   = "xxxx"
+vsphere_server = "xxxx"
 vsphere_datacenter = "SJC Datacenter"
 vsphere_cluster    = "LF-Staging"
 datastore1         = "LF-Staging/LF-Staging-SSD001"
@@ -10,10 +10,10 @@ environment       = "stg"
 
 folder = "STG"
 
-shared_credentials_file = "/Users/hchan/.aws/credentials"
+shared_credentials_file = "{variable or vault}"
 
-network_label_priv = "VSwitch For 6.0/LEAPFROG-STG-PRIVATE"
-network_label_pub = "VSwitch For 6.0/LEAPFROG-STG-PUBLIC"
+network_label_priv = "VSwitch/private"
+network_label_pub = "VSwitch/public"
 pool = "LF-Staging"
 
 master_count = 3
