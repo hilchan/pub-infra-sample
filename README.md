@@ -1,6 +1,6 @@
 # Infrastructure Project
 
-This repo contains sample code written by Hilton Chan that utilized at organization
+This repo contains sample code written by Hilton Chan utilized at organization
 
 ## Contents
 - **Terraform:** - codes used in AWS and VMWare on-prem Infrastructure
